@@ -6,7 +6,6 @@ import Layout from "@/components/layouts/Layout";
 import DetailsCard from "@/components/partials/DetailsCard";
 
 export default function EventPage({ event }) {
-  console.log(event);
   return (
     <Layout>
       <section className="px-4 lg:px-6 ">
