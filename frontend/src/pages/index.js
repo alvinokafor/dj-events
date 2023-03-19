@@ -1,5 +1,4 @@
-import { API_URL } from "@/config/index";
-
+import { sanityClient } from "@/utils/sanityConfig";
 import Layout from "@/components/layouts/Layout";
 import Hero from "@/components/home/Hero";
 import UpcomingEvents from "@/components/home/UpcomingEvents";
@@ -16,8 +15,7 @@ export default function Home({ event_list }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`${API_URL}/api/events`);
-  const event_list = await res.json();
+  const event_list = await sanityClient.fetch(`*[_type == "event"]`);
 
   return {
     props: { event_list },

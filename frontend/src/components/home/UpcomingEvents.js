@@ -1,16 +1,14 @@
 import Link from "next/link";
-
 import EventCard from "../partials/EventCard";
 
 export default function UpcomingEvents({ event_list }) {
-  console.log(event_list);
   return (
     <section className="px-4 lg:px-6">
       <h2 className="text-3xl font-bold mb-16 text-center">Upcoming Events</h2>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 mb-12 gap-y-6">
         {event_list.map((event) => (
-          <EventCard event={event} key={event.id} />
+          <EventCard event={event} key={event._id} />
         ))}
       </div>
 

@@ -1,7 +1,4 @@
-import Image from "next/image";
-
-import { API_URL } from "@/config/index";
-
+import { sanityClient, urlFor } from "@/utils/sanityConfig";
 import Layout from "@/components/layouts/Layout";
 import DetailsCard from "@/components/partials/DetailsCard";
 
@@ -10,10 +7,9 @@ export default function EventPage({ event }) {
     <Layout>
       <section className="px-4 lg:px-6 ">
         <div className="w-full h-[450px] relative rounded-lg overflow-hidden mb-12 mt-8">
-          <Image
+          <img
             className="object-cover object-center"
-            src={event.image}
-            fill
+            src={urlFor(event.event_image.asset._ref).url()}
           />
         </div>
 
@@ -21,8 +17,8 @@ export default function EventPage({ event }) {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 mb-12 gap-y-6">
           <DetailsCard title={"Performers"} performers={event.performers} />
-          <DetailsCard title={"Date"} performers={event.date} />
-          <DetailsCard title={"Time"} performers={event.time} />
+          {/* <DetailsCard title={"Date"} performers={event.date} />
+          <DetailsCard title={"Time"} performers={event.time} /> */}
           <DetailsCard title={"Venue"} performers={event.venue} />
         </div>
       </section>
@@ -31,11 +27,10 @@ export default function EventPage({ event }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${API_URL}/api/events`);
-  const events = await res.json();
+  const events = await sanityClient.fetch(`*[_type == "event"]`);
 
   const paths = events.map((evt) => ({
-    params: { slug: evt.slug },
+    params: { slug: evt.slug.current },
   }));
 
   return {
@@ -45,8 +40,9 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params: { slug } }) {
-  const res = await fetch(`${API_URL}/api/events/${slug}`);
-  const event = await res.json();
+  const event = await sanityClient.fetch(
+    `*[_type == "event" && slug.current == "${slug}"]`
+  );
 
   return {
     props: { event: event[0] },
