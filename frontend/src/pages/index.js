@@ -15,7 +15,7 @@ export default function Home({ event_list }) {
 }
 
 export async function getStaticProps() {
-  const event_list = await sanityClient.fetch(`*[_type == "event"]`);
+  const event_list = await sanityClient.fetch(`*[_type == "event"][0...3]`);
 
   return {
     props: { event_list },

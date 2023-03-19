@@ -1,4 +1,4 @@
-import { sanityClient } from "../../utils/sanityConfig";
+import { sanityClient } from "@/utils/sanityConfig";
 import Layout from "@/components/layouts/Layout";
 import EventCard from "@/components/partials/EventCard";
 
@@ -10,7 +10,7 @@ export default function EventsPage({ event_list }) {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 mb-12 gap-y-6">
           {event_list.map((event) => (
-            <EventCard event={event} key={event.id} />
+            <EventCard event={event} key={event._id} />
           ))}
         </div>
       </section>
@@ -19,7 +19,7 @@ export default function EventsPage({ event_list }) {
 }
 
 export async function getStaticProps() {
-  const event_list = await sanityClient.fetch(`*[_type == event]`);
+  const event_list = await sanityClient.fetch(`*[_type == "event"]`);
 
   return {
     props: { event_list },

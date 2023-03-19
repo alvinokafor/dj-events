@@ -1,11 +1,15 @@
 import { sanityClient, urlFor } from "@/utils/sanityConfig";
+import { useFormattedDate } from "@/hooks/useFormattedDate";
 import Layout from "@/components/layouts/Layout";
 import DetailsCard from "@/components/partials/DetailsCard";
 
 export default function EventPage({ event }) {
+  const event_date = useFormattedDate(event.date_time);
+
   return (
     <Layout>
       <section className="px-4 lg:px-6 ">
+        <h2 className="mt-3 mb-2 text-xl font-bold">{event.event_title}</h2>
         <div className="w-full h-[450px] relative rounded-lg overflow-hidden mb-12 mt-8">
           <img
             className="object-cover object-center"
@@ -13,13 +17,12 @@ export default function EventPage({ event }) {
           />
         </div>
 
-        <p className="text-lg my-6">{event.description}</p>
+        <p className="text-lg my-6">{event.event_description}</p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 mb-12 gap-y-6">
           <DetailsCard title={"Performers"} performers={event.performers} />
-          {/* <DetailsCard title={"Date"} performers={event.date} />
-          <DetailsCard title={"Time"} performers={event.time} /> */}
-          <DetailsCard title={"Venue"} performers={event.venue} />
+          <DetailsCard title={"Date & Time"} date={event_date} />
+          <DetailsCard title={"Venue"} venue={event.venue} />
         </div>
       </section>
     </Layout>

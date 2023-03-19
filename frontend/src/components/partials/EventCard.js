@@ -1,7 +1,10 @@
 import Link from "next/link";
+import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { urlFor } from "@/utils/sanityConfig";
 
 export default function EventCard({ event }) {
+  const event_date = useFormattedDate(event.date_time);
+
   return (
     <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow place-self-center">
       <a href="#">
@@ -18,7 +21,7 @@ export default function EventCard({ event }) {
           </h5>
         </a>
         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {event.date_time}
+          {event_date}
         </p>
         <Link href={`/events/${event.slug.current}`}>
           <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
