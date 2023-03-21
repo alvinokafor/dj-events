@@ -5,7 +5,8 @@
       "@/styles/*": ["./src/styles/*"],
       "@/config/*": ["./config/*"],
       "@/utils/*": ["./src/utils/*"],
-      "@/hooks/*": ["./src/hooks/*"]
+      "@/hooks/*": ["./src/hooks/*"],
+      "@/contexts/*": ["./src/contexts/*"],
     }
   }
 }

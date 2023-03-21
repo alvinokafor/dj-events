@@ -14,6 +14,11 @@ export default {
       title: 'Event Title',
     },
     {
+      name: 'saved_event',
+      type: 'boolean',
+      title: 'Saved Event',
+    },
+    {
       name: 'event_description',
       type: 'text',
       title: 'Event Description',
