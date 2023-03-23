@@ -5,25 +5,20 @@ import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { urlFor } from "@/utils/sanityConfig";
 
 export default function EventCard({ event }) {
-  const [isSaved, setIsSaved] = useState(false);
+  const [isSaved, setIsSaved] = useState(event.saved_event || false);
   const { savedEvents, setSavedEvents } = useContext(AppContext);
   const event_date = useFormattedDate(event.date_time);
 
   const handleSaveEvent = (event) => {
     setSavedEvents([{ ...event, saved_event: true }, ...savedEvents]);
     setIsSaved(true);
-    // console.log(savedEvents);
-    console.log(isSaved);
   };
 
   const handleUnsaveEvent = (event) => {
     const filteredEvents = savedEvents.filter((evt) => evt._id !== event._id);
     setSavedEvents(filteredEvents);
     setIsSaved(false);
-    console.log(isSaved);
   };
-
-  console.log(isSaved);
 
   return (
     <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow place-self-center">

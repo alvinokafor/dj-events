@@ -5,6 +5,7 @@ import EventCard from "@/components/partials/EventCard";
 
 export default function EventsPage() {
   const { savedEvents } = useContext(AppContext);
+  console.log(savedEvents);
   return (
     <Layout>
       <section className="px-4 lg:px-6">
