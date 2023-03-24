@@ -23,24 +23,23 @@ export default function EventCard({ event }) {
 
   return (
     <div className="max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow place-self-center">
-      <a href="#">
+      <div>
         <img
-          className="rounded-t-lg"
+          className="basis-2/4 rounded-t-lg"
           src={urlFor(event.event_image.asset._ref).url()}
           alt=""
         />
-      </a>
-      <div className="p-5">
-        <a href="#">
-          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-            {event.event_title}
-          </h5>
-        </a>
-        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+      </div>
+      <div className="p-5 flex flex-col">
+        <h5 className="basis-1/4 mb-2 text-2xl font-bold tracking-tight text-gray-900">
+          {event.event_title}
+        </h5>
+
+        <p className="basis-1/4 mb-3 font-normal text-gray-700 dark:text-gray-400">
           {event_date}
         </p>
 
-        <div className="space-x-3">
+        <div className="space-x-3 basis-1/4">
           <Link href={`/events/${event.slug.current}`}>
             <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 ">
               View details
