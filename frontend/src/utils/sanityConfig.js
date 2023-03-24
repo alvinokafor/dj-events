@@ -6,6 +6,7 @@ export const sanityClient = createClient({
   dataset: "production",
   apiVersion: "2023-03-19",
   useCdn: false,
+  token: process.env.NEXT_PUBLIC_SANITY_TOKEN,
 });
 
 const imgBuilder = imageUrlBuilder(sanityClient);

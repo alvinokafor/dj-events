@@ -1,23 +1,24 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
+import { updateEvent } from "@/utils/sanity_actions";
 import Link from "next/link";
 import { AppContext } from "@/contexts/AppContext";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { urlFor } from "@/utils/sanityConfig";
 
 export default function EventCard({ event }) {
-  const [isSaved, setIsSaved] = useState(event.saved_event || false);
-  const { savedEvents, setSavedEvents } = useContext(AppContext);
+  const { eventList, setEventList } = useContext(AppContext);
   const event_date = useFormattedDate(event.date_time);
 
   const handleSaveEvent = (event) => {
-    setSavedEvents([{ ...event, saved_event: true }, ...savedEvents]);
-    setIsSaved(true);
-  };
+    const mutatedEvents = eventList.map((evt) => {
+      if (evt._id === event._id) {
+        evt.saved_event = !evt.saved_event;
+        updateEvent(evt._id, evt.saved_event);
+      }
+      return evt;
+    });
 
-  const handleUnsaveEvent = (event) => {
-    const filteredEvents = savedEvents.filter((evt) => evt._id !== event._id);
-    setSavedEvents(filteredEvents);
-    setIsSaved(false);
+    setEventList(mutatedEvents);
   };
 
   return (
@@ -59,7 +60,7 @@ export default function EventCard({ event }) {
             </button>
           </Link>
 
-          {!isSaved ? (
+          {!event.saved_event ? (
             <button
               className="inline-flex items-center px-3 py-2 text-sm text-slate-600 border border-blue-700 font-medium text-center  rounded-lg hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
               onClick={() => handleSaveEvent(event)}
@@ -69,7 +70,7 @@ export default function EventCard({ event }) {
           ) : (
             <button
               className="inline-flex items-center px-3 py-2 text-sm text-white border bg-blue-700 font-medium text-center  rounded-lg hover:text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
-              onClick={() => handleUnsaveEvent(event)}
+              onClick={() => handleSaveEvent(event)}
             >
               Saved
             </button>

@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AppContext } from "@/contexts/AppContext";
 import { sanityClient } from "@/utils/sanityConfig";
 import Layout from "@/components/layouts/Layout";
@@ -6,20 +6,23 @@ import Hero from "@/components/home/Hero";
 import UpcomingEvents from "@/components/home/UpcomingEvents";
 
 export default function Home({ event_list }) {
-  const { savedEvents } = useContext(AppContext);
-  console.log(savedEvents);
+  const { setEventList } = useContext(AppContext);
+  useEffect(() => {
+    setEventList(event_list);
+  }, []);
+
   return (
     <>
       <Layout>
         <Hero />
-        <UpcomingEvents event_list={event_list} />
+        <UpcomingEvents />
       </Layout>
     </>
   );
 }
 
 export async function getStaticProps() {
-  const event_list = await sanityClient.fetch(`*[_type == "event"][0...3]`);
+  const event_list = await sanityClient.fetch(`*[_type == "event"]`);
 
   return {
     props: { event_list },
