@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { updateEvent } from "@/utils/sanity_actions";
 import Link from "next/link";
-import { AppContext } from "@/contexts/AppContext";
+import { AppContext, Event } from "@/contexts/AppContext";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { urlFor } from "@/utils/sanityConfig";
 
@@ -11,7 +11,7 @@ export default function EventCard({ event }) {
 
   const handleSaveEvent = (event) => {
     const mutatedEvents = eventList.map((evt) => {
-      if (evt._id === event._id) {
+      if (evt._id === event) {
         evt.saved_event = !evt.saved_event;
         updateEvent(evt._id, evt.saved_event);
       }
