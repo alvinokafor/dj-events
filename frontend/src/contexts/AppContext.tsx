@@ -1,7 +1,7 @@
 import { createContext, SetStateAction, useState, Dispatch, ReactNode } from "react";
 
 export type Event = {
-  _id: number,
+  _id: string,
   title: string,
   description: string,
   saved_event: boolean,

@@ -20,9 +20,9 @@ export default function EventPage({ event }) {
         <p className="text-lg my-6">{event.event_description}</p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 mb-12 gap-y-6">
-          <DetailsCard title={"Performers"} performers={event.performers} />
-          <DetailsCard title={"Date & Time"} date={event_date} />
-          <DetailsCard title={"Venue"} venue={event.venue} />
+          <DetailsCard title="Performers" performers={event.performers} />
+          <DetailsCard title="Date & Time" date={event_date} />
+          <DetailsCard title="Venue" venue={event.venue} />
         </div>
       </section>
     </Layout>

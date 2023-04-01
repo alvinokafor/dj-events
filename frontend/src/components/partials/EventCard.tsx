@@ -1,17 +1,37 @@
 import { useContext } from "react";
 import { updateEvent } from "@/utils/sanity_actions";
 import Link from "next/link";
-import { AppContext, Event } from "@/contexts/AppContext";
+import { AppContext } from "@/contexts/AppContext";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 import { urlFor } from "@/utils/sanityConfig";
+
+type EventObj =  {
+  _id: string,
+  title: string,
+  description: string,
+  saved_event: boolean,
+  date_time: string,
+  event_description: string,
+  event_image: {
+    asset: {
+      _ref: string
+    }
+  },
+  event_title: string,
+  venue: string,
+  performers: string,
+  slug: {
+    current: string
+  }
+}
 
 export default function EventCard({ event }) {
   const { eventList, setEventList } = useContext(AppContext);
   const event_date = useFormattedDate(event.date_time);
 
-  const handleSaveEvent = (event) => {
+  const handleSaveEvent = (event: EventObj) => {
     const mutatedEvents = eventList.map((evt) => {
-      if (evt._id === event) {
+      if (evt._id === event._id) {
         evt.saved_event = !evt.saved_event;
         updateEvent(evt._id, evt.saved_event);
       }
