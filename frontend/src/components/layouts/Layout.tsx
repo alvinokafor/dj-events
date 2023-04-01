@@ -2,7 +2,13 @@ import Head from "next/head";
 import NavBar from "../partials/NavBar";
 import Footer from "../partials/Footer";
 
-export default function Layout({ title, description, children }) {
+export interface LayoutProps {
+  title: string;
+  description: string;
+  children: React.ReactNode;
+}
+
+export default function Layout({ title, description, children }: LayoutProps) {
   return (
     <>
       <Head>

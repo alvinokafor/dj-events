@@ -1,4 +1,4 @@
-export function useFormattedDate(event_date) {
+export function useFormattedDate(event_date: string) {
   const date = new Date(event_date);
   const formattedDate = new Intl.DateTimeFormat("en-us", {
     year: "numeric",
